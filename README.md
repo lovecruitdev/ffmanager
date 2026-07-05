@@ -152,7 +152,7 @@ python main.pyw
 
 Join the official Discord for support, preset sharing, and community discussion.
 
-[**Join the Discord Server →**](https://discord.gg/ECekjAkQu7)
+[**Join the Discord Server →**](https://discord.gg/4kD7hddgJ)
 
 </div>
 
@@ -187,4 +187,4 @@ This project is open-sourced under the **MIT License**. See [`LICENSE`](LICENSE)
 </div>
 
 [shield-discord-server]: https://img.shields.io/discord/1487010055931953152?logo=discord&logoColor=white&label=discord&color=aaaaa
-[discord-invite]:  https://discord.gg/HnqyxsAXhz
+[discord-invite]:  https://discord.gg/4kD7hddgJ
