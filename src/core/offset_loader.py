@@ -497,12 +497,48 @@ def load_offsets(base_addr: int, build_version: str,
     return flags, structs
 
 
+def _parse_tracker_json(body: bytes) -> dict[str, str]:
+    import json
+    try:
+        data = json.loads(body.decode('utf-8', errors='ignore'))
+        names = {}
+        for name, value in data.items():
+            if isinstance(value, bool):
+                ftype = 'bool'
+            elif isinstance(value, int):
+                ftype = 'int'
+            elif isinstance(value, float):
+                ftype = 'float'
+            else:
+                ftype = 'string'
+            names[name] = ftype
+        return names
+    except Exception as e:
+        log(f"[!] Error parsing Tracker JSON: {e}", (255, 100, 100))
+        return {}
+
+
 def load_known_flag_names() -> dict[str, str]:
     """Known-flag list for UI: name+type only, no process base required.
 
     Uses the same fallback chain as load_offsets for body fetch, then disk
     cache as a final fallback for the preset list.
     """
+    # Try MaximumADHD's PCDesktopClient.json first for a complete, 10,000+ flag database
+    try:
+        url = "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/main/PCDesktopClient.json"
+        body = offset_sources.fetch_via_requests(url)
+        if not body:
+            body = offset_sources.fetch_via_curl(url)
+            
+        if body:
+            names = _parse_tracker_json(body)
+            if len(names) >= 2000:
+                log(f"[+] Loaded {len(names)} known flags dynamically from Roblox-FFlag-Tracker JSON!", (100, 255, 100))
+                return names
+    except Exception as e:
+        log(f"[!] Failed to fetch/parse Roblox-FFlag-Tracker JSON: {e}. Falling back to imtheo...", (255, 200, 100))
+
     body, source_id = _fetch_body_via_chain()
     if body:
         names = _parse_imtheo_known_names_only(body)
