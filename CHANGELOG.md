@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.3.9] - 2026-07-05
+
+### Changed
+
+- Updated all branding, links, and avatar fallbacks to the new owner (lovecruit).
+- Switched the executable compilation backend from PyInstaller to Nuitka compiler for faster startup time, improved security against decompilation, and automatic compiler installation.
+- Updated official Discord server links to `https://discord.gg/4kD7hddgJ`.
+
 ## [3.3.8] - 2026-05-22
 
 ### Changed
