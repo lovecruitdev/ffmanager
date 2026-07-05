@@ -78,6 +78,7 @@ memory_proximity.txt
 targets.json
 last_version.txt
 *.log
+*.zip
 
 # ──────────────────────────────────────────────────────────────
 # User data (lives in %USERPROFILE%/.FFlagManager normally;
