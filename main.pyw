@@ -71,7 +71,7 @@ if __name__ == "__main__":
                 import importlib.metadata
                 
                 # Packages to check (matching requirements.txt exactly)
-                required = ["requests", "pywebview", "pystray", "Pillow"]
+                required = ["requests", "pywebview", "pythonnet", "pystray", "Pillow"]
                 missing = []
                 
                 for pkg in required:
@@ -95,7 +95,10 @@ if __name__ == "__main__":
                     # (os.execv spawns before the old process dies, triggering the single-instance check)
                     if mutex:
                         ctypes.windll.kernel32.CloseHandle(mutex)
-                    subprocess.Popen([sys.executable] + sys.argv)
+                    
+                    # Get absolute path of main script to avoid WinError 2 when restarting from different directories
+                    main_script_path = os.path.abspath(sys.argv[0])
+                    subprocess.Popen([sys.executable, main_script_path] + sys.argv[1:])
                     sys.exit(0)
         except Exception as boot_err:
             # If bootstrapper fails, we still try to run main() (it might just be a metadata check error)
