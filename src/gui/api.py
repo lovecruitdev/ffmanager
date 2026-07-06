@@ -268,7 +268,6 @@ class Api:
             success = download_update(info['exe_url'], info['version'], progress_callback=on_progress)
             if success:
                 self._update_progress = 100
-                time.sleep(1.0)  # Brief pause to let the .bat process register before we exit
                 os._exit(0)
             else:
                 self._update_progress = -1  # Signal failure
