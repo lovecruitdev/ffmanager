@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Roblox FFlag Manager"
-#define MyAppVersion "3.4.1"
+#define MyAppVersion "3.4.2"
 #define MyAppPublisher "lovecruit"
 #define MyAppURL "https://github.com/lovecruitdev/ffmanager"
 #define MyAppExeName "FFM.exe"
