@@ -130,6 +130,18 @@ def patch_readme(version: str) -> bool:
     return True
 
 
+def patch_installer_iss(version: str) -> bool:
+    iss_file = ROOT / "installer.iss"
+    if not iss_file.is_file():
+        return False
+    text = iss_file.read_text(encoding="utf-8")
+    updated = re.sub(r'(#define MyAppVersion\s+")[^"]+(")', rf'\1{version}\2', text)
+    if updated == text:
+        return False
+    iss_file.write_text(updated, encoding="utf-8")
+    return True
+
+
 def main() -> None:
     if len(sys.argv) > 1:
         version = sys.argv[1].lstrip("v")
@@ -142,11 +154,13 @@ def main() -> None:
     svg_changed = patch_svg(version)
     svg_count_changed = patch_svg_flag_count()
     readme_changed = patch_readme(version)
+    iss_changed = patch_installer_iss(version)
     baseline_changed = refresh_baseline()
 
     print(f"  logo.svg (version)       -> {'updated' if svg_changed else 'no change'}")
     print(f"  logo.svg (flag count)    -> {'updated' if svg_count_changed else 'no change'}")
     print(f"  README.md                -> {'updated' if readme_changed else 'no change'}")
+    print(f"  installer.iss            -> {'updated' if iss_changed else 'no change'}")
     print(f"  src/data/FFlags_baseline -> {'updated' if baseline_changed else 'no change'}")
 
 
