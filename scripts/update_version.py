@@ -135,7 +135,7 @@ def patch_installer_iss(version: str) -> bool:
     if not iss_file.is_file():
         return False
     text = iss_file.read_text(encoding="utf-8")
-    updated = re.sub(r'(#define MyAppVersion\s+")[^"]+(")', rf'\1{version}\2', text)
+    updated = re.sub(r'(#define MyAppVersion\s+")[^"]+(")', rf'\g<1>{version}\g<2>', text)
     if updated == text:
         return False
     iss_file.write_text(updated, encoding="utf-8")
