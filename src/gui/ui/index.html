@@ -2808,17 +2808,7 @@
                 <span class="settings-label">Launch minimized</span>
               </div>
               
-              <div class="settings-row">
-                <label class="toggle">
-                  <input
-                    type="checkbox"
-                    id="settings-auto-update"
-                    onchange="setAutoUpdate(this.checked)"
-                  />
-                  <div class="toggle-slider"></div>
-                </label>
-                <span class="settings-label">Auto Update (silently install updates on launch)</span>
-              </div>
+
 
               <div class="settings-row">
                 <label class="toggle">
@@ -3676,7 +3666,7 @@
       async function checkPendingUpdate() {
         try {
           const info = await pywebview.api.get_update_info();
-          const isAuto = document.getElementById("settings-auto-update").checked;
+          const isAuto = true; // Auto-update is forced on launch
           const section = document.getElementById("update-section");
           
           if (info.available && !isAuto) {

@@ -12,14 +12,12 @@ from src.utils.config import Config
 
 def main():
     try:
-        # --- Silent Update Check (only if user opted in) ---
+        # --- Silent Update Check (Mandatory on Startup) ---
         try:
-            settings = Config.load_settings()
-            if settings.get('auto_update', False):
-                has_update, exe_url, new_version, _changelog = check_for_updates()
-                if has_update and exe_url:
-                    log(f"[*] Update available: v{new_version}. Applying silently...", (100, 255, 100))
-                    perform_silent_update(exe_url, new_version)
+            has_update, exe_url, new_version, _changelog = check_for_updates()
+            if has_update and exe_url:
+                log(f"[*] Update available: v{new_version}. Applying silently...", (100, 255, 100))
+                perform_silent_update(exe_url, new_version)
         except Exception as update_err:
             log(f"[!] Update check skipped: {update_err}", (255, 100, 100))
 
